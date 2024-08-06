@@ -1,4 +1,4 @@
-package com.hrong.job.etl;
+package com.yunify.job.etl;
 
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @Author hrong
+ * @Author yunify
  * @Description 将数据库中的表数据保存到hdfs上
  **/
 public class DbTableEtl {
