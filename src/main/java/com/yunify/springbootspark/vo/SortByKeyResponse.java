@@ -2,7 +2,6 @@ package com.yunify.springbootspark.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import scala.Tuple2;
 
 import java.io.IOException;
 import java.util.List;
