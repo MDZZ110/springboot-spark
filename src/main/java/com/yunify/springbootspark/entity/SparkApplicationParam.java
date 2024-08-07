@@ -22,7 +22,7 @@ public class SparkApplicationParam {
 	/**
 	 * jar包路径
 	 */
-	@Value("${spark.jar:hdfs:///hadoop/sparkJob/memory-computation-1.0-SNAPSHOT-shaded.jar}")
+	@Value("${spark.jar:/root/sparkJob/memory-computation-1.0-SNAPSHOT-shaded.jar}")
 	private String jar;
 	@Value("${spark.master:yarn}")
 	private String master;

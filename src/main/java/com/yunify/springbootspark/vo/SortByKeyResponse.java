@@ -9,16 +9,16 @@ import java.util.List;
 
 public class SortByKeyResponse extends Response {
     @JsonProperty("distributedDataset")
-    private List<Tuple2<String, String>> distributedDataset;
+    private List<String> distributedDataset;
 
     public SortByKeyResponse() {}
 
-    public SortByKeyResponse(int taskStatus, List<Tuple2<String, String>> distributedDataset, int errorCode, String errorMsg){
+    public SortByKeyResponse(int taskStatus, List<String> distributedDataset, int errorCode, String errorMsg){
         super(taskStatus, errorCode, errorMsg);
         this.distributedDataset = distributedDataset;
     }
 
-    public static SortByKeyResponse getResponse(ErrorCodeEnum errorCodeEnum, List<Tuple2<String, String>> distributedDataset){
+    public static SortByKeyResponse getResponse(ErrorCodeEnum errorCodeEnum, List<String> distributedDataset){
         if(errorCodeEnum == ErrorCodeEnum.SUCCESS){
             return new SortByKeyResponse(
                     Response.TASK_STATUS_SUCCESS,

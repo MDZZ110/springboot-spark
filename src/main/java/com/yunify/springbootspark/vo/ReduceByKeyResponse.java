@@ -2,23 +2,22 @@ package com.yunify.springbootspark.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import scala.Tuple2;
 
 import java.io.IOException;
 import java.util.List;
 
 public class ReduceByKeyResponse extends Response {
     @JsonProperty("distributedDataset")
-    private List<Tuple2<String, String>> distributedDataset;
+    private List<String> distributedDataset;
 
     public ReduceByKeyResponse() {}
 
-    public ReduceByKeyResponse(int taskStatus, List<Tuple2<String, String>> distributedDataset, int errorCode, String errorMsg){
+    public ReduceByKeyResponse(int taskStatus, List<String> distributedDataset, int errorCode, String errorMsg){
         super(taskStatus, errorCode, errorMsg);
         this.distributedDataset = distributedDataset;
     }
 
-    public static ReduceByKeyResponse getResponse(ErrorCodeEnum errorCodeEnum, List<Tuple2<String, String>> distributedDataset){
+    public static ReduceByKeyResponse getResponse(ErrorCodeEnum errorCodeEnum, List<String> distributedDataset){
         if(errorCodeEnum == ErrorCodeEnum.SUCCESS){
             return new ReduceByKeyResponse(
                     Response.TASK_STATUS_SUCCESS,
