@@ -30,26 +30,27 @@ public class SparkSubmitServiceImpl implements ISparkSubmitService {
 
 	private static Logger log = LoggerFactory.getLogger(SparkSubmitServiceImpl.class);
 
-	@Value("${spark.url:hdfs://192.168.110.8:9000/}")
+	@Value("${spark.url:hdfs://157.208.10.53:9000/}")
 	private String url;
 
+	@Value("${spark.orc.jar:/root/sparkJob/orc-core-1.5.6.jar}")
+	private String orcJar;
 
 	@Override
 	public String submitApplication(SparkApplicationParam sparkAppParams, String... otherParams) throws IOException, InterruptedException {
 		log.info("spark任务传入参数：{}", sparkAppParams.toString());
-		String defaultJarPath = "/root/sparkJob/orc-core-1.5.5.jar";
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 		Map<String, String> confParams = sparkAppParams.getOtherConfParams();
 		SparkLauncher launcher = new SparkLauncher()
-				.addJar(defaultJarPath)
+//				.addJar(orcJar)
 				.setMainClass(sparkAppParams.getMainClass())
 				.setMaster(sparkAppParams.getMaster())
 				.setDeployMode(sparkAppParams.getDeployMode())
 				.setAppResource(sparkAppParams.getJar())
 				.setConf("spark.driver.memory", sparkAppParams.getDriverMemory())
 				.setConf("spark.executor.memory", sparkAppParams.getExecutorMemory())
-				.setConf("spark.executor.cores", sparkAppParams.getExecutorCores())
-				.setConf(SparkLauncher.DRIVER_EXTRA_CLASSPATH, defaultJarPath);
+				.setConf("spark.executor.cores", sparkAppParams.getExecutorCores());
+//				.setConf(SparkLauncher.DRIVER_EXTRA_CLASSPATH, orcJar);
 		if (confParams != null && confParams.size() != 0) {
 			log.info("开始设置spark job运行参数:{}", JSONObject.toJSONString(confParams));
 			for (Map.Entry<String, String> conf : confParams.entrySet()) {
