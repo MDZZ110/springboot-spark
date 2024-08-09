@@ -1,5 +1,6 @@
 package com.yunify.springbootspark.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.yunify.springbootspark.entity.SparkApplicationParam;
 import com.yunify.springbootspark.service.ISparkSubmitService;
 import com.yunify.springbootspark.util.CommonUtil;
@@ -59,7 +60,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					"" + vo.getFunction(),
 					vo.getParameterList()
 			);
@@ -79,7 +80,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset()
+					vo.getDatasetJson()
 			);
 
 		} catch (Exception e) {
@@ -97,7 +98,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset()
+					vo.getDatasetJson()
 			);
 
 		} catch (Exception e) {
@@ -115,7 +116,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					"" + vo.getAmount()
 			);
 
@@ -134,7 +135,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getFileType(),
 					vo.getFilePath()
 			);
@@ -154,7 +155,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					"" + vo.getFunction(),
 					vo.getParameterList()
 			);
@@ -175,7 +176,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getUserDefinedFunction()
 			);
 
@@ -194,7 +195,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getUserDefinedFunction()
 			);
 
@@ -213,7 +214,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getReplace(),
 					vo.getPercentage(),
 					vo.getRandomSeed()
@@ -234,8 +235,8 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset1(),
-					vo.getDistributedDataset2()
+					vo.getDatasetJson(vo.getDistributedDataset1()),
+					vo.getDatasetJson(vo.getDistributedDataset2())
 			);
 
 		} catch (Exception e) {
@@ -253,8 +254,8 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset1(),
-					vo.getDistributedDataset2()
+					vo.getDatasetJson(vo.getDistributedDataset1()),
+					vo.getDatasetJson(vo.getDistributedDataset2())
 			);
 
 		} catch (Exception e) {
@@ -272,7 +273,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset()
+					vo.getDatasetJson()
 			);
 
 		} catch (Exception e) {
@@ -290,7 +291,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset()
+					vo.getDatasetJson()
 			);
 
 		} catch (Exception e) {
@@ -308,7 +309,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getReduceFunction(),
 					vo.getKeyField()
 			);
@@ -328,7 +329,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					vo.getSort(),
 					vo.getKeyField()
 			);
@@ -348,8 +349,8 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset1(),
-					vo.getDistributedDataset2(),
+					vo.getDatasetJson(vo.getDistributedDataset1()),
+					vo.getDatasetJson(vo.getDistributedDataset2()),
 					"" + vo.getJoinMethod()
 			);
 
@@ -368,7 +369,7 @@ public class SparkController {
 		try {
 			result = iSparkSubmitService.submitApplication(params,
 					vo.getMethodName(),
-					vo.getDistributedDataset(),
+					vo.getDatasetJson(),
 					"" + vo.getPartitionNumber()
 			);
 

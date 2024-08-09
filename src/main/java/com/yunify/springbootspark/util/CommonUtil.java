@@ -1,8 +1,12 @@
 package com.yunify.springbootspark.util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.qingcloud.sdk.config.EnvContext;
 import com.qingcloud.sdk.exception.QCException;
@@ -148,5 +152,21 @@ public class CommonUtil {
         }
 
         return udfMethod;
+    }
+
+    public static List<String> readFileAsInput(String fileName) {
+        List<String> lines = new ArrayList<String>();
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
+            String line;
+            while((line = br.readLine()) != null){
+                if (!line.trim().isEmpty()) {
+                    lines.add(line);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lines;
     }
 }
