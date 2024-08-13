@@ -1,24 +1,22 @@
 package com.yunify.springbootspark.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 
-import java.io.IOException;
-import java.util.List;
 
 public class IntersectionResponse extends Response {
-
+    @Getter
     @JsonProperty("distributedDataset")
-    private List<String> distributedDataset;
+    private String distributedDataset;
 
     public IntersectionResponse() {}
 
-    public IntersectionResponse(int taskStatus, List<String> distributedDataset, int errorCode, String errorMsg){
+    public IntersectionResponse(int taskStatus, String distributedDataset, int errorCode, String errorMsg){
         super(taskStatus, errorCode, errorMsg);
         this.distributedDataset = distributedDataset;
     }
 
-    public static IntersectionResponse getResponse(ErrorCodeEnum errorCodeEnum, List<String> result){
+    public static IntersectionResponse getResponse(ErrorCodeEnum errorCodeEnum, String result){
         if(errorCodeEnum == ErrorCodeEnum.SUCCESS){
             return new IntersectionResponse(
                     Response.TASK_STATUS_SUCCESS,
@@ -34,16 +32,6 @@ public class IntersectionResponse extends Response {
                 errorCodeEnum.getErrorCode(),
                 errorCodeEnum.getErrorMsg()
         );
-    }
-
-    public static IntersectionResponse getResponse(String respJson){
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return  mapper.readValue(respJson, IntersectionResponse.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return IntersectionResponse.getResponse(ErrorCodeEnum.FAILED, null);
-        }
     }
 
     @Override

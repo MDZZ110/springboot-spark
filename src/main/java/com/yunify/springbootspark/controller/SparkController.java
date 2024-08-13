@@ -239,12 +239,21 @@ public class SparkController {
 					vo.getDatasetJson(vo.getDistributedDataset2())
 			);
 
+			UnionJobResult jobResult = UnionJobResult.getResponse(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return UnionResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			String fileName = "union" + "-" + vo.getDistributedDataset1() + "-" + vo.getDistributedDataset2();
+			String filePath = "/root/input" + "/" + fileName;
+			CommonUtil.writeListToFile(jobResult.getDistributedDataset(), filePath);
+
+			return UnionResponse.getResponse(ErrorCodeEnum.SUCCESS, fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return UnionResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
 
-		return UnionResponse.getResponse(result);
 	}
 
 	@ResponseBody
@@ -258,12 +267,21 @@ public class SparkController {
 					vo.getDatasetJson(vo.getDistributedDataset2())
 			);
 
+			IntersectionJobResult jobResult = IntersectionJobResult.getResponse(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return IntersectionResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			String fileName = "intersection" + "-" + vo.getDistributedDataset1() + "-" + vo.getDistributedDataset2();
+			String filePath = "/root/input" + "/" + fileName;
+			CommonUtil.writeListToFile(jobResult.getDistributedDataset(), filePath);
+
+			return IntersectionResponse.getResponse(ErrorCodeEnum.SUCCESS, fileName);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return IntersectionResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
 
-		return IntersectionResponse.getResponse(result);
 	}
 
 	@ResponseBody
@@ -344,7 +362,7 @@ public class SparkController {
 
 	@ResponseBody
 	@PostMapping("/transformation/join")
-	public JoinResponse union(@RequestBody JoinVo vo) {
+	public JoinResponse join(@RequestBody JoinVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -364,7 +382,7 @@ public class SparkController {
 
 	@ResponseBody
 	@PostMapping("/transformation/partition")
-	public PartitionResponse union(@RequestBody PartitionVo vo) {
+	public PartitionResponse partition(@RequestBody PartitionVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,

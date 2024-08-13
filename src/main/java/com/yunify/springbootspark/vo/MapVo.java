@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -25,7 +27,12 @@ public class MapVo {
 
     public String getDatasetJson() throws JsonProcessingException {
         String filePath = constants.INPUT_FILE_DIR + "/" + distributedDataset;
-        List<String> dataset = CommonUtil.readFileAsInput(filePath);
+        List<String> stringList = CommonUtil.readFileAsInput(filePath);
+        List<Integer> dataset = new ArrayList<>();
+        for(String str: stringList) {
+            dataset.add(Integer.parseInt(str));
+        }
+
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }

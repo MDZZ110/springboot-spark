@@ -1,9 +1,11 @@
 package com.yunify.springbootspark.util;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,19 @@ import com.qingcloud.sdk.exception.QCException;
 import com.qingcloud.sdk.service.TagService;
 
 public class CommonUtil {
+
+    public static void writeListToFile(List<Integer> list, String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        Files.createDirectories(path.getParent());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) { // true表示追加模式，如果不需要追加则设为false或省略
+            for (Integer number : list) {
+                writer.write(number.toString()); // 将Integer转换为String并写入
+                writer.newLine(); // 写入新行
+            }
+            writer.flush();
+        }
+    }
+
     public static boolean validateUserIdentity(String accessToken){
         if(null == accessToken){
             return false;
