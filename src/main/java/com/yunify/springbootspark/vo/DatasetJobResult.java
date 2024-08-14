@@ -2,24 +2,26 @@ package com.yunify.springbootspark.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.util.List;
 
-public class TakeResponse extends Response {
+public class DatasetJobResult extends Response {
+    @Getter
     @JsonProperty("distributedDataset")
-    private List<String> distributedDataset;
+    private List<?> distributedDataset;
 
-    public TakeResponse() {}
+    public DatasetJobResult() {}
 
-    public TakeResponse(int taskStatus, List<String> distributedDataset, int errorCode, String errorMsg){
+    public DatasetJobResult(int taskStatus, List<?> distributedDataset, int errorCode, String errorMsg){
         super(taskStatus, errorCode, errorMsg);
         this.distributedDataset = distributedDataset;
     }
 
-    public static TakeResponse getResponse(ErrorCodeEnum errorCodeEnum, List<String> result){
+    public static DatasetJobResult getResult(ErrorCodeEnum errorCodeEnum, List<?> result){
         if(errorCodeEnum == ErrorCodeEnum.SUCCESS){
-            return new TakeResponse(
+            return new DatasetJobResult(
                     Response.TASK_STATUS_SUCCESS,
                     result,
                     ErrorCodeEnum.SUCCESS.getErrorCode(),
@@ -27,7 +29,7 @@ public class TakeResponse extends Response {
             );
         }
 
-        return new TakeResponse(
+        return new DatasetJobResult(
                 Response.TASK_STATUS_FAILED,
                 null,
                 errorCodeEnum.getErrorCode(),
@@ -35,19 +37,13 @@ public class TakeResponse extends Response {
         );
     }
 
-    public static TakeResponse getResponse(String respJson){
+    public static DatasetJobResult getResult(String respJson){
         try {
             ObjectMapper mapper = new ObjectMapper();
-            return  mapper.readValue(respJson, TakeResponse.class);
+            return  mapper.readValue(respJson, DatasetJobResult.class);
         } catch (IOException e) {
             e.printStackTrace();
-            return TakeResponse.getResponse(ErrorCodeEnum.FAILED, null);
+            return DatasetJobResult.getResult(ErrorCodeEnum.FAILED, null);
         }
-    }
-
-    @Override
-    public String toString() {
-        return String.format("TakeResponse{taskStatus=%s, distributedDataset=%s, errorCode=%s, errorMsg=%s}",
-                this.getTaskStatus(), distributedDataset, this.getErrorCode(), this.getErrorMsg());
     }
 }

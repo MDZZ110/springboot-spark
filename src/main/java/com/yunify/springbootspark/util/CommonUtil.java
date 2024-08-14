@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,11 +17,22 @@ import com.qingcloud.sdk.service.TagService;
 
 public class CommonUtil {
 
-    public static void writeListToFile(List<Integer> list, String filePath) throws IOException {
+    public static void main(String[] args) {
+        try {
+            CommonUtil.writeListToFile(Arrays.asList("A:1", "B:2", "C:3"), "/Users/apple/gongan/springboot-spark/dataset.log");
+        }catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        System.out.println("写入数据成功");
+    }
+
+    public static void writeListToFile(List<?> list, String filePath) throws IOException {
         Path path = Paths.get(filePath);
         Files.createDirectories(path.getParent());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) { // true表示追加模式，如果不需要追加则设为false或省略
-            for (Integer number : list) {
+            for (Object number : list) {
                 writer.write(number.toString()); // 将Integer转换为String并写入
                 writer.newLine(); // 写入新行
             }
