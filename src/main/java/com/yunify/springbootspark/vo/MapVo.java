@@ -36,4 +36,8 @@ public class MapVo {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }
+
+    public String getMidFileName() {
+        return methodName + "-" + distributedDataset;
+    }
 }

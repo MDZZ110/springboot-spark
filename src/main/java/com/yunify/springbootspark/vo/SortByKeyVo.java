@@ -32,4 +32,8 @@ public class SortByKeyVo {
         return mapper.writeValueAsString(dataset);
     }
 
+    public String getMidFileName() {
+        return methodName + "-" + distributedDataset;
+    }
+
 }

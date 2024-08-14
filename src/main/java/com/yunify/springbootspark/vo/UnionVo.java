@@ -29,4 +29,8 @@ public class UnionVo {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }
+
+    public String getMidFileName() {
+        return methodName + "-" + distributedDataset1 + "-" + distributedDataset2;
+    }
 }

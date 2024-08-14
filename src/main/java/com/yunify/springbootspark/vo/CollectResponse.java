@@ -9,16 +9,16 @@ import java.util.List;
 
 public class CollectResponse extends Response {
     @JsonProperty("result")
-    private List<String> result;
+    private List<?> result;
 
     public CollectResponse() {}
 
-    public CollectResponse(int taskStatus, List<String> result, int errorCode, String errorMsg){
+    public CollectResponse(int taskStatus, List<?> result, int errorCode, String errorMsg){
         super(taskStatus, errorCode, errorMsg);
         this.result = result;
     }
 
-    public static CollectResponse getResponse(ErrorCodeEnum errorCodeEnum, List<String> result){
+    public static CollectResponse getResponse(ErrorCodeEnum errorCodeEnum, List<?> result){
         if(errorCodeEnum == ErrorCodeEnum.SUCCESS){
             return new CollectResponse(
                     Response.TASK_STATUS_SUCCESS,

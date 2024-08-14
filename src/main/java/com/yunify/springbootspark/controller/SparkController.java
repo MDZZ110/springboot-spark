@@ -121,12 +121,18 @@ public class SparkController {
 					"" + vo.getAmount()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
 
-		return DatasetResponse.getResponse(result);
 	}
 
 	@ResponseBody
@@ -172,7 +178,7 @@ public class SparkController {
 
 	@ResponseBody
 	@PostMapping("/transformation/map")
-	public MapResponse map(@RequestBody MapVo vo) {
+	public DatasetResponse map(@RequestBody MapVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -181,17 +187,21 @@ public class SparkController {
 					vo.getUserDefinedFunction()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return MapResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return MapResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/filter")
-	public FilterResponse filter(@RequestBody FilterVo vo) {
+	public DatasetResponse filter(@RequestBody FilterVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -200,17 +210,22 @@ public class SparkController {
 					vo.getUserDefinedFunction()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return FilterResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return FilterResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/sample")
-	public SampleResponse sample(@RequestBody SampleVo vo) {
+	public DatasetResponse sample(@RequestBody SampleVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -221,12 +236,17 @@ public class SparkController {
 					vo.getRandomSeed()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return SampleResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return SampleResponse.getResponse(result);
 	}
 
 	@ResponseBody
@@ -245,8 +265,7 @@ public class SparkController {
 				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 			}
 
-			String fileName = "union" + "-" + vo.getDistributedDataset1() + "-" + vo.getDistributedDataset2();
-			return DatasetResponse.getResponse(jobResult, fileName);
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
@@ -270,8 +289,7 @@ public class SparkController {
 				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 			}
 
-			String fileName = "intersection" + "-" + vo.getDistributedDataset1() + "-" + vo.getDistributedDataset2();
-			return DatasetResponse.getResponse(jobResult, fileName);
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
@@ -281,7 +299,7 @@ public class SparkController {
 
 	@ResponseBody
 	@PostMapping("/transformation/distinct")
-	public DistinctResponse distinct(@RequestBody DistinctVo vo) {
+	public DatasetResponse distinct(@RequestBody DistinctVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -289,17 +307,22 @@ public class SparkController {
 					vo.getDatasetJson()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return DistinctResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return DistinctResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/groupByKey")
-	public GroupByKeyResponse groupByKey(@RequestBody GroupByKeyVo vo) {
+	public DatasetResponse groupByKey(@RequestBody GroupByKeyVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -307,17 +330,23 @@ public class SparkController {
 					vo.getDatasetJson()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return GroupByKeyResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
 
-		return GroupByKeyResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/reduceByKey")
-	public ReduceByKeyResponse reduceByKey(@RequestBody ReduceByKeyVo vo) {
+	public DatasetResponse reduceByKey(@RequestBody ReduceByKeyVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -327,17 +356,22 @@ public class SparkController {
 					vo.getKeyField()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ReduceByKeyResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return ReduceByKeyResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/sortByKey")
-	public SortByKeyResponse sortByKey(@RequestBody SortByKeyVo vo) {
+	public DatasetResponse sortByKey(@RequestBody SortByKeyVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -347,17 +381,22 @@ public class SparkController {
 					vo.getKeyField()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return SortByKeyResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return SortByKeyResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/join")
-	public JoinResponse join(@RequestBody JoinVo vo) {
+	public DatasetResponse join(@RequestBody JoinVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -367,17 +406,22 @@ public class SparkController {
 					"" + vo.getJoinMethod()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return JoinResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return JoinResponse.getResponse(result);
 	}
 
 	@ResponseBody
 	@PostMapping("/transformation/partition")
-	public PartitionResponse partition(@RequestBody PartitionVo vo) {
+	public DatasetResponse partition(@RequestBody PartitionVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -386,14 +430,16 @@ public class SparkController {
 					"" + vo.getPartitionNumber()
 			);
 
+			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
+			if (jobResult.getErrorCode() != 0 ) {
+				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			}
+
+			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			return PartitionResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return PartitionResponse.getResponse(result);
 	}
-
-
-
 }

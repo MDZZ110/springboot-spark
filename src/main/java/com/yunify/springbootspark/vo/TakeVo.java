@@ -30,4 +30,8 @@ public class TakeVo {
         return mapper.writeValueAsString(dataset);
     }
 
+    public String getMidFileName() {
+        return methodName + "-" + distributedDataset;
+    }
+
 }

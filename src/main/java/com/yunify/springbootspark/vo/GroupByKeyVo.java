@@ -28,4 +28,8 @@ public class GroupByKeyVo {
         return mapper.writeValueAsString(dataset);
     }
 
+    public String getMidFileName() {
+        return methodName + "-" + distributedDataset;
+    }
+
 }
