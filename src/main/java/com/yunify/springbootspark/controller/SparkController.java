@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @Author yunify
@@ -112,7 +113,7 @@ public class SparkController {
 
 	@ResponseBody
 	@PostMapping("/action/take")
-	public DatasetResponse take(@RequestBody TakeVo vo) {
+	public TakeResponse take(@RequestBody TakeVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -120,24 +121,17 @@ public class SparkController {
 					vo.getDatasetJson(),
 					"" + vo.getAmount()
 			);
-
-			DatasetJobResult jobResult = DatasetJobResult.getResult(result);
-			if (jobResult.getErrorCode() != 0 ) {
-				return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
-			}
-
-			return DatasetResponse.getResponse(jobResult, vo.getMidFileName());
-
+			return TakeResponse.getResponse(result);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return DatasetResponse.getResponse(ErrorCodeEnum.FAILED, null);
+			return TakeResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
 
 	}
 
 	@ResponseBody
 	@PostMapping("/action/saveFile")
-	public Response saveFile(@RequestBody SaveFileVo vo) {
+	public SaveFileResponse saveFile(@RequestBody SaveFileVo vo) {
 		String result;
 		try {
 			result = iSparkSubmitService.submitApplication(params,
@@ -147,12 +141,11 @@ public class SparkController {
 					vo.getFilePath()
 			);
 
+			return SaveFileResponse.getResponse(result, vo.getDistributedDataset());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.getResponse(ErrorCodeEnum.FAILED);
+			return SaveFileResponse.getResponse(ErrorCodeEnum.FAILED, null);
 		}
-
-		return Response.getResponse(result);
 	}
 
 	@ResponseBody
