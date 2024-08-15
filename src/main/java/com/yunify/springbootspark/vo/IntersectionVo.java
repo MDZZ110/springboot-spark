@@ -25,7 +25,7 @@ public class IntersectionVo {
 
     public String getDatasetJson(String customDataset) throws JsonProcessingException {
         String filePath = constants.INPUT_FILE_DIR + "/" + customDataset;
-        List<String> dataset = CommonUtil.readFileAsInput(filePath);
+        List<?> dataset = CommonUtil.readFileAsInput(filePath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }

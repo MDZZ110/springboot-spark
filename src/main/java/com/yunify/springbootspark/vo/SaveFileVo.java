@@ -27,7 +27,7 @@ public class SaveFileVo {
 
     public String getDatasetJson() throws JsonProcessingException {
         String filePath = constants.INPUT_FILE_DIR + "/" + distributedDataset;
-        List<String> dataset = CommonUtil.readFileAsInput(filePath);
+        List<?> dataset = CommonUtil.readFileAsInput(filePath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }

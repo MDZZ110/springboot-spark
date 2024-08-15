@@ -181,13 +181,26 @@ public class CommonUtil {
         return udfMethod;
     }
 
-    public static List<String> readFileAsInput(String fileName) {
-        List<String> lines = new ArrayList<String>();
+    public static Boolean canConvertToInt(String line) {
+        try {
+            Integer.parseInt(line);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static List<?> readFileAsInput(String fileName) {
+        List<Object> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))){
             String line;
             while((line = br.readLine()) != null){
                 if (!line.trim().isEmpty()) {
-                    lines.add(line);
+                    if (canConvertToInt(line)) {
+                        lines.add(Integer.valueOf(line));
+                    } else {
+                        lines.add(line);
+                    }
                 }
             }
         } catch (Exception e) {

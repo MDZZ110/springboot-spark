@@ -27,12 +27,7 @@ public class MapVo {
 
     public String getDatasetJson() throws JsonProcessingException {
         String filePath = constants.INPUT_FILE_DIR + "/" + distributedDataset;
-        List<String> stringList = CommonUtil.readFileAsInput(filePath);
-        List<Integer> dataset = new ArrayList<>();
-        for(String str: stringList) {
-            dataset.add(Integer.parseInt(str));
-        }
-
+        List<?> dataset = CommonUtil.readFileAsInput(filePath);
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(dataset);
     }
