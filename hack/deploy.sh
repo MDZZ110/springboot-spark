@@ -36,6 +36,6 @@ fi
 
 # 使用nohup部署新的jar包
 echo "Deploying new jar with nohup..."
-ssh $REMOTE_USER@$REMOTE_HOST "nohup /usr/jdk/bin/java -jar $REMOTE_PATH/$REMOTE_SERVER_JAR_NAME > /root/springboot.log 2>&1"
+ssh $REMOTE_USER@$REMOTE_HOST "nohup /usr/jdk/bin/java -jar $REMOTE_PATH/$REMOTE_SERVER_JAR_NAME &"
 
 echo "Deployment complete."
